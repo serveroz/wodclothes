@@ -15,5 +15,5 @@ app.use('/product', productosRouter);
 app.use('/category', categoriesRouter);
 
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo`);
+    console.log(`Server Running`);
 });
