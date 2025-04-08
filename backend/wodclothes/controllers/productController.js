@@ -61,4 +61,19 @@ const actualizarProducto = async (req, res) => {
   }
 };
 
-module.exports = { obtenerProductos, crearProducto, obtenerProductoid, actualizarProducto};
+const eliminarProducto = async (req, res) => {
+  try {
+    const db = obtenerDB();
+    const { id } = req.params;
+    const producto = await db.collection('product').deleteOne({ _id: new ObjectId(id) });
+    if (!producto) {
+      res.status(404).json({ mensaje: 'Producto no encontrado' });
+    } else {
+      res.status(200).json({ mensaje: 'Producto eliminado', producto });
+    }
+  } catch (error) {
+    res.status(500).json({ mensaje: 'Error al obtener el producto', error });
+  }
+};
+
+module.exports = { obtenerProductos, crearProducto, obtenerProductoid, actualizarProducto, eliminarProducto };
