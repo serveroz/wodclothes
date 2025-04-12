@@ -7,6 +7,7 @@ interface ProductCardProps {
   name: string;
   price: number;
   image?: string;
+  onViewDetails: () => void;
   onAddToCart: () => void;
 }
 
@@ -41,7 +42,7 @@ const IconContainer = styled(Box)(({ theme }) => ({
   borderRadius: theme.spacing(1),
 }));
 
-const ProductCard: React.FC<ProductCardProps> = ({ name, price, image, onAddToCart }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ name, price, image, onViewDetails, onAddToCart }) => {
   return (
     <StyledCard>
       {image ? (
@@ -62,9 +63,22 @@ const ProductCard: React.FC<ProductCardProps> = ({ name, price, image, onAddToCa
         <Typography variant="body1" sx={{ color: 'white', textAlign: 'center', mb: 2 }}>
           ${price.toFixed(2)}
         </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
         <Button
           variant="contained"
-          fullWidth
+          onClick={onViewDetails}
+          sx={{
+            backgroundColor: 'white',
+            color: 'black',
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.8)',
+            },
+          }}
+        >
+          View Details
+        </Button>
+        <Button
+          variant="contained"
           onClick={onAddToCart}
           sx={{
             backgroundColor: 'white',
@@ -76,6 +90,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ name, price, image, onAddToCa
         >
           Add to Cart
         </Button>
+        </Box>
       </CardContent>
     </StyledCard>
   );
